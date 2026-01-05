@@ -3,14 +3,12 @@
 		"modid": "megaloot",
 		"name": "Mega Loot",
 		"description": "Mega Loot - Loot suitable for RPG Gameplay",
-		"version": "${version}",
-		"mcversion": "${mcversion}",
+		"version": "0.3",
+		"mcversion": "1.12.2",
 		"url": "",
 		"updateUrl": "",
-		"authorList": ["Iskall85","Winter_Grave"],
-		"credits": "Iskall85, jimlthedude, yeahminecraft16",
-		"logoFile": "",
-		"screenshots": [],
-		"dependencies": []
+		"authorList": ["Iskall85","Winter_Grave", "HugoMDM"],
+		"credits": "Original project by Iskall85, jimlthedude, yeahminecraft16, 0.3 update by HugoMDM",
+		"logoFile": "logo.png"
 	}
 ]
