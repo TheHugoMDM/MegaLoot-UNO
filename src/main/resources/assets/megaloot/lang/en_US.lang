@@ -100,5 +100,6 @@ weaponeffect.jetpack.description=Jetpack. Hover: %2$s, Speed: %1$s
 container.disenchanter.title=Tool Manipulator
 container.skin_table.title=Cosmetic Transmutation
 container.evolution_chamber.title=Evolution Chamber
+tile.shards_ore.name=Shards Ore
 megaloot.key.categories.megaloot=Mega Loot
 megaloot.key.activateeffect=Activate Effect
