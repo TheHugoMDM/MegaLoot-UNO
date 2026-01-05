@@ -1,11 +1,10 @@
 buildscript {
     repositories {
-    	mavenLocal()
-        jcenter()
+        mavenLocal()
         mavenCentral()
         maven {
-        	name = "forge"
-        	url = "http://files.minecraftforge.net/maven"
+            name = "forge"
+            url = "https://files.minecraftforge.net/maven"
         }
     }
     dependencies {
@@ -13,51 +12,60 @@ buildscript {
     }
 }
 
-repositories {
-	mavenLocal()
-	jcenter()
-	mavenCentral()
-	
-	maven {
-        url "http://dvs1.progwml6.com/files/maven"
-    }
-    maven {
-        name = "JEI repo"
-        url "http://dvs1.progwml6.com/files/maven"
-    }
-    maven {
-        name = "CoFH Maven"
-        url = "http://maven.covers1624.net"
-    }
-    maven { // Hwyla
-        name 'tehnut'
-        url "http://tehnut.info/maven"
-    }
-    maven { // EnderIO
-    	url = "http://maven.tterrag.com" 
-    }
-    maven {
-    	url = "http://files.minecraftforge.net/maven"
-    }
-	maven {
-		name = "thiakil"
-		url = "http://maven.thiakil.com"
-	}
-}
-
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = version
-group = "zairus." + modid
-archivesBaseName = modid + "-" + mcversion
+repositories {
+    mavenLocal()
+    mavenCentral()
+
+    // JEI
+    maven {
+        name = "JEI"
+        url = "https://dvs1.progwml6.com/files/maven"
+    }
+
+    // CoFH / Thermal
+    maven {
+        name = "CoFH"
+        url = "https://maven.covers1624.net"
+    }
+
+    // EnderIO
+    maven {
+        name = "EnderIO"
+        url = "https://maven.tterrag.com"
+    }
+
+    // Curse Maven (Hwyla)
+    maven {
+        name = "CurseMaven"
+        url = "https://cursemaven.com"
+    }
+
+    // Forge
+    maven {
+        url = "https://files.minecraftforge.net/maven"
+    }
+
+    // Thiakil
+    maven {
+        name = "thiakil"
+        url = "https://maven.thiakil.com"
+    }
+}
+
+version = project.version
+group = "zairus.${modid}"
+archivesBaseName = "${modid}-${mcversion}"
 
 sourceCompatibility = targetCompatibility = "1.8"
+
 compileJava {
     sourceCompatibility = targetCompatibility = "1.8"
 }
 
 minecraft {
-    version = mcversion + "-" + forgeversion
+    version = "${mcversion}-${forgeversion}"
     runDir = "run"
     mappings = "snapshot_20171003"
 }
@@ -67,23 +75,25 @@ configurations {
 }
 
 dependencies {
-	deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
-	deobfCompile "mezz.jei:jei_1.12.2:${jei_version}"
-	deobfCompile "mcp.mobius.waila:Hwyla:${hwyla_version}"
+    deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
+    deobfCompile "mezz.jei:jei_1.12.2:${jei_version}"
+
+    // Hwyla (FIX)
+    deobfCompile "curse.maven:hwyla-253449:2568751"
 }
 
 processResources {
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
-    
+
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-        
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand(
+            'version': project.version,
+            'mcversion': project.minecraft.version
+        )
     }
-    
-    // copy everything else, thats not the mcmod.info
+
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
