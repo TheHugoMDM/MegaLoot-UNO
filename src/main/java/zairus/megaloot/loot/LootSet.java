@@ -90,6 +90,7 @@ public class LootSet
 			,"Exiled Adamantite Shortsword"
 			,"Massacre, Blessed Blade of Delusions"
 			,"Brutality, Longsword of Decay"
+			,"Turrón"
 			,"Toothpick, Skewer of the Incoming Storm"};
 	
 	public static final String[] BOW_NAMES = {
@@ -172,6 +173,9 @@ public class LootSet
 		LOOT_ITEM_NAMES.put(LootSetType.BOW, BOW_NAMES);
 		LOOT_ITEM_NAMES.put(LootSetType.RING, RING_NAMES);
 		LOOT_ITEM_NAMES.put(LootSetType.TOOL, TOOL_NAMES);
+		LOOT_ITEM_NAMES.put(LootSetType.TOOLP, TOOL_NAMES);
+		LOOT_ITEM_NAMES.put(LootSetType.TOOLA, TOOL_NAMES);
+		LOOT_ITEM_NAMES.put(LootSetType.TOOLSH, TOOL_NAMES);
 	}
 	
 	protected LootSet(int itemModel, LootWeaponEffect bonus)
@@ -273,8 +277,10 @@ public class LootSet
 		ARMOR_LEGS("armor_legs", 4),
 		ARMOR_CHEST("armor_chest", 4),
 		ARMOR_HEAD("armor_head", 4),
-		TOOL("tool", 21);
-		
+		TOOL("tool", 21),////////
+		TOOLA("tool", 21),
+		TOOLP("tool", 21),
+		TOOLSH("tool", 21);
 		public final int models;
 		private String id;
 		

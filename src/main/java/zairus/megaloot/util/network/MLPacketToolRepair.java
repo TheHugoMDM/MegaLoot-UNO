@@ -61,10 +61,20 @@ public class MLPacketToolRepair extends MLPacket
 			{
 			case 0:
 				disenchanter.applyRepair();
+				disenchanter.markDirty();
+				disenchanter.update();
 				break;
 			case 1:
 				disenchanter.setDisenchanterPlayer(player);
 				disenchanter.disenchantStart();
+				disenchanter.markDirty();
+				disenchanter.update();
+				break;
+			case 2:
+				disenchanter.setDisenchanterPlayer(player);
+				disenchanter.toggle();
+				disenchanter.markDirty();
+				disenchanter.update();
 				break;
 			}
 		}

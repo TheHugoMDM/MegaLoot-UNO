@@ -13,6 +13,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.storage.loot.LootEntryItem;
 import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.LootTableList;
@@ -273,6 +274,13 @@ public class MLEventHandler
 		}
 	}
 	
+	
+	
+	
+	
+	
+	
+	
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void onKeyHandle(InputEvent.KeyInputEvent event)
@@ -282,6 +290,14 @@ public class MLEventHandler
 			MegaLoot.packetPipeline.sendToServer(new MLPacketToolUse());
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
@@ -318,17 +334,18 @@ public class MLEventHandler
 	public void onPlayerTick(PlayerTickEvent event)
 	{
 		ItemStack chestplate = event.player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+		NBTTagCompound tag = chestplate.getTagCompound();
+        if (tag == null)
+            tag = new NBTTagCompound();
+        boolean active = tag.getBoolean("AbilityActive");
 		
-		if (chestplate != null && !chestplate.isEmpty() && LootItemHelper.hasEffect(chestplate, LootWeaponEffect.JETPACK))
+		if (chestplate != null && !chestplate.isEmpty() && LootItemHelper.hasEffect(chestplate, LootWeaponEffect.JETPACK) && active)
 		{
-			if(!event.player.onGround)
+			if(!event.player.onGround && !event.player.isSneaking())
 			{
 				int hover = LootWeaponEffect.getAmplifierFromStack(chestplate, LootWeaponEffect.JETPACK.getId());
 				
 				double factor = 1.0D - ((double)hover / 100.0D); // 0.93D;
-				
-				if (event.player.isSneaking())
-					factor = 0.97D;
 				
 				if (event.player.motionY < 0.0D)
 				{

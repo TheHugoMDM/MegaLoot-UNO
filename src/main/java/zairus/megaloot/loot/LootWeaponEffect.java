@@ -33,7 +33,7 @@ public class LootWeaponEffect
 	public static final LootWeaponEffect WEAKNESS = create("weakness", EffectType.PASSIVE, MobEffects.WEAKNESS).setDuration(1, 3).setItemTypes(LootSetType.SWORD, LootSetType.BOW);
 	public static final LootWeaponEffect SLOWNESS = create("slowness", EffectType.PASSIVE, MobEffects.SLOWNESS).setDuration(1, 3).setItemTypes(LootSetType.SWORD, LootSetType.BOW);
 	public static final LootWeaponEffect BLINDNESS = create("blindness", EffectType.PASSIVE, MobEffects.BLINDNESS).setDuration(1, 2).setItemTypes(LootSetType.SWORD, LootSetType.BOW);
-	public static final LootWeaponEffect MULTISHOT = create("multishot", EffectType.PASSIVE).setAmplifier(2, 6).setItemTypes(LootSetType.BOW);
+	public static final LootWeaponEffect MULTISHOT = create("multishot", EffectType.PASSIVE).setAmplifier(2, 20).setItemTypes(LootSetType.BOW);
 	public static final LootWeaponEffect LEECHLIFE = create("leechlife", EffectType.PASSIVE).setAmplifier(1, 100).setItemTypes(LootSetType.SWORD);
 	
 	public static final LootWeaponEffect SPEED = create("speed", EffectType.PASSIVE, MobEffects.SPEED).setAmplifier(0, 1).setItemTypes(LootSetType.RING);
@@ -54,13 +54,14 @@ public class LootWeaponEffect
 	public static final LootWeaponEffect NIGHT_VISION = create("night_vision", EffectType.PASSIVE, MobEffects.NIGHT_VISION).setItemTypes(LootSetType.TOOL);
 	public static final LootWeaponEffect AUTO_SMELT = create("auto_smelt", EffectType.ACTIVE).setItemTypes(LootSetType.TOOL).setAction(new LootEffectActionAutoSmelt());
 	public static final LootWeaponEffect AREA_MINER = create("area_miner", EffectType.ACTIVE).setItemTypes(LootSetType.TOOL).setAction(new LootEffectActionAreaMiner());
-	public static final LootWeaponEffect VOID = create("void", EffectType.ACTIVE).setItemTypes(LootSetType.TOOL).setAction(new LootEffectActionVoid());
+
 	public static final LootWeaponEffect SELECTIVE = create("selective", EffectType.USE).setItemTypes(LootSetType.TOOL).setAction(new LootEffectActionVoidFilter());
 	public static final LootWeaponEffect MAGNETIC = create("magnetic", EffectType.PASSIVE).setItemTypes(LootSetType.TOOL).setAction(new LootEffectActionMagnet());
 	public static final LootWeaponEffect MULTI = create("multi", EffectType.PASSIVE).setItemTypes(LootSetType.TOOL);
 	public static final LootWeaponEffect SLEEP = create("sleep", EffectType.USE).setItemTypes(LootSetType.TOOL).setAction(new LootEffectActionSleep());
 	
-	public static final LootWeaponEffect JETPACK = create("jetpack", EffectType.PASSIVE).setItemTypes(LootSetType.ARMOR_CHEST).setAmplifier(5, 20).setDuration(2, 5);
+	public static final LootWeaponEffect VOID =    create("void"   , EffectType.ACTIVE).setItemTypes(LootSetType.TOOL).setAction(new LootEffectActionVoid());
+	public static final LootWeaponEffect JETPACK = create("jetpack", EffectType.ACTIVE).setItemTypes(LootSetType.ARMOR_CHEST).setAmplifier(5, 20).setDuration(2, 5);
 	
 	private String id;
 	private Potion effect;

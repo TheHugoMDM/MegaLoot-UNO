@@ -6,9 +6,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketEntityVelocity;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import zairus.megaloot.loot.LootItemHelper;
 import zairus.megaloot.loot.LootWeaponEffect;
 
@@ -65,62 +69,100 @@ public class MLPacketJetpack extends MLPacket
 	{
 		ItemStack chestplate = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		
-		if (chestplate == null || chestplate.isEmpty() || !LootItemHelper.hasEffect(chestplate, LootWeaponEffect.JETPACK))
+		NBTTagCompound tag = chestplate.getTagCompound();
+        if (tag == null)
+            tag = new NBTTagCompound();
+        boolean active = tag.getBoolean("AbilityActive");
+		
+		
+		if (chestplate == null || chestplate.isEmpty() || !LootItemHelper.hasEffect(chestplate, LootWeaponEffect.JETPACK) || !active)
 			return;
 		
-		float s = (float)LootWeaponEffect.getDurationFromStack(chestplate, LootWeaponEffect.JETPACK.getId()) / 100.0F;
-		
-		double speed = (double)s / 10.0D; // 0.5D;
+
+		double speed = 0.5D;//(double)s / 10.0D; // 0.5D;
 		
 		if (this.jump)
 		{
-			player.motionY = speed;
+			if (player.motionY<speed) {
+			player.motionY = player.motionY + 0.06D;
+			}
 			((EntityPlayerMP)player).connection.sendPacket(new SPacketEntityVelocity(player));
+			
+			
+			
+			World world = player.getEntityWorld();
+			if (!world.isRemote)
+			{
+			    WorldServer ws = (WorldServer) world;
+			    ws.spawnParticle(
+			        EnumParticleTypes.CRIT_MAGIC,
+			        player.posX+player.motionX,
+			        player.posY+player.motionY,
+			        player.posZ+player.motionZ,
+			        3,
+			        0.02D, 0.02D, 0.02D,
+			        0.2D
+			    );
+			}
+			
+			
 		}
+		
+		
+		
+		
 		
 		if (!player.onGround)
 		{
 			float yaw = player.rotationYaw;
 			float pitch = 0.0F;
-			
 			float f = MathHelper.cos(-yaw * 0.017453292F - (float)Math.PI);
 			float f1 = MathHelper.sin(-yaw * 0.017453292F - (float)Math.PI);
 			float f2 = -MathHelper.cos(-pitch * 0.017453292F);
 			float f3 = MathHelper.sin(-pitch * 0.017453292F);
 			Vec3d vForward = new Vec3d((double)(f1 * f2), (double)f3, (double)(f * f2));
-			
 			Vec3d vLeft = new Vec3d(vForward.z, vForward.y, -vForward.x);
-			
 			double mX = 0.0D;
 			double mZ = 0.0D;
-			
 			if (this.forward)
 			{
 				mX += vForward.x * speed;
 				mZ += vForward.z * speed;
 			}
-			
 			if (this.back)
 			{
 				mX += vForward.x * -speed;
 				mZ += vForward.z * -speed;
 			}
-			
 			if (this.left)
 			{
 				mX += vLeft.x * speed;
 				mZ += vLeft.z * speed;
 			}
-			
 			if (this.right)
 			{
 				mX += vLeft.x * -speed;
 				mZ += vLeft.z * -speed;
 			}
+			if (Math.abs(player.motionX)<Math.abs(mX)) {
+				if (player.motionX<mX) {
+					player.motionX=player.motionX+0.02D;
+				}
+				if (player.motionX>mX) {
+					player.motionX=player.motionX-0.02D;
+				}
+			}
+			if (Math.abs(player.motionZ)<Math.abs(mZ)) {
+				if (player.motionZ<mZ) {
+					player.motionZ=player.motionZ+=0.02D;
+				}
+				if (player.motionZ>mZ) {
+					player.motionZ=player.motionZ-0.02D;
+				}
+			}
 			
-			player.motionX = mX;
-			player.motionZ = mZ;
-			
+
+
 			((EntityPlayerMP)player).connection.sendPacket(new SPacketEntityVelocity(player));
 		}
 	}

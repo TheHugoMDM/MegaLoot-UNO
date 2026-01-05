@@ -41,7 +41,7 @@ public class MLItemWeaponBow extends ItemBow implements IMegaLoot
 	{
 		super();
 		this.setCreativeTab(MegaLoot.creativeTabMain);
-		this.setNoRepair();
+		//this.setNoRepair();
 		
 		this.addPropertyOverride(new ResourceLocation("model"), new IItemPropertyGetter() {
 			@SideOnly(Side.CLIENT)
@@ -247,7 +247,7 @@ public class MLItemWeaponBow extends ItemBow implements IMegaLoot
 						entityarrow.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
 					}
 					
-					entityarrow.shoot(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0.0F, f * 3.0F, 1.0F);
+					entityarrow.shoot(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw + (i*2)-(s) , 0.0F, f * 3.0F, 1.0F);
 					
 					if (f == 1.0F)
 						entityarrow.setIsCritical(true);

@@ -39,7 +39,7 @@ public class MLItemToolPickaxe extends ItemPickaxe implements IMegaLoot
 		super(ToolMaterial.DIAMOND);
 		
 		this.setCreativeTab(MegaLoot.creativeTabMain);
-		this.setNoRepair();
+		//this.setNoRepair();
 		
 		this.addPropertyOverride(new ResourceLocation("model"), new IItemPropertyGetter() {
 			@SideOnly(Side.CLIENT)

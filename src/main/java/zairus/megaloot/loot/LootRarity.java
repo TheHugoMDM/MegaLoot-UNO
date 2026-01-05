@@ -16,35 +16,35 @@ public class LootRarity
 	
 	public static final LootRarity COMMON = 
 			get("Common", TextFormatting.WHITE, MLItems.SHARD_COMMON)
-			.setDamage(6, 11)
+			.setDamage(1, 3)
 			.setSpeed(-3.1F, -2.399F)
 			.setArmor(0, 1)
 			.setToughness(0, 0)
 			.setEfficiency(5.0F, 12.0F)
 			.setDurability(100, 550)
-			.setUpgrades(2, 6);
+			.setUpgrades(2, 4);
 	
 	public static final LootRarity RARE = 
 			get("Rare", TextFormatting.YELLOW, MLItems.SHARD_RARE)
-			.setDamage(9, 15)
+			.setDamage(2, 6)
 			.setSpeed(-2.8F, -2.3F)
 			.setArmor(1, 3)
 			.setToughness(0, 2)
 			.setEfficiency(10.0F, 25.0F)
 			.setDurability(350, 1450)
-			.setModifierCount(0, 2)
-			.setUpgrades(2, 6);
+			.setModifierCount(0, 3)
+			.setUpgrades(2, 5);
 	
 	public static final LootRarity EPIC = 
 			get("Epic", TextFormatting.LIGHT_PURPLE, MLItems.SHARD_EPIC)
-			.setDamage(12, 28)
+			.setDamage(5, 13)
 			.setSpeed(-2.69999F, -2.1F)
 			.setArmor(2, 5)
 			.setToughness(1, 5)
-			.setEfficiency(15.0F, 40.0F)
-			.setDurability(850, 2500)
-			.setModifierCount(1, 3)
-			.setUpgrades(2, 6);
+			.setEfficiency(15.0F, 50.0F)
+			.setDurability(850, 3500)
+			.setModifierCount(1, 4)
+			.setUpgrades(3, 6);
 	
 	private final Item shardItem;
 	
@@ -166,71 +166,76 @@ public class LootRarity
 		return modifierCount;
 	}
 	
-	public int getDurability(Random rand)
-	{
-		int durability = this.durabilityMin;
-		
-		if (durability < this.durabilityMax)
-			durability += rand.nextInt(this.durabilityMax - durability + 1);
-		
-		return durability;
-	}
+
 	
 	public int getDamage(Random rand)
 	{
-		int damage = this.damageMin;
-		
-		if (damage < this.damageMax)
-			damage += rand.nextInt(this.damageMax - damage + 1);
-		
-		return damage;
+	    int base = damageMin;
+	    if (base < damageMax)
+	        base += rand.nextInt(damageMax - base + 1);
+	    // Escala: mientras mayor, más fácil obtener valores altos
+	    double scale = 1.5;
+	    int extra = (int)(-Math.log(1 - rand.nextDouble()) * scale);
+	    return base + extra;
 	}
 	
+	private int rollWithSoftCapInt(Random rand, int min, int max, float decay)
+	{
+	    int value = min + rand.nextInt(max - min + 1);
+
+	    float chance = decay; // ej: 0.25f
+	    while (rand.nextFloat() < chance)
+	    {
+	        value++;
+	        chance *= decay; // cada punto extra es más raro
+	    }
+
+	    return value;
+	}
+	private float rollWithSoftCapFloat(Random rand, float min, float max, float decay)
+	{
+	    float value = min + (max - min) * rand.nextFloat();
+
+	    float chance = decay;
+	    float step = (max - min) * 1f; // tamaño del incremento extra
+
+	    while (rand.nextFloat() < chance)
+	    {
+	        value += step;
+	        chance *= decay;
+	    }
+
+	    return value;
+	}
+	
+	
+	public int getDurability(Random rand)
+	{
+	    return rollWithSoftCapInt(rand, durabilityMin, durabilityMax, 0.25f);
+	}
 	public float getSpeed(Random rand)
 	{
-		float speed = this.speedMin;
-		
-		speed += (this.speedMax - speed) * rand.nextFloat();
-		
-		return speed;
+	    float speed = rollWithSoftCapFloat(rand, speedMin, speedMax, 0.25f);
+	    return Math.round(speed * 100.0F) / 100.0F;
 	}
-	
 	public float getArmor(Random rand)
 	{
-		float armor = this.armorMin;
-		
-		armor += (this.armorMax - armor) * rand.nextFloat();
-		armor = (float)Math.round(armor * 100.0F) / 100.0F;
-		
-		return armor;
+	    float armor = rollWithSoftCapFloat(rand, armorMin, armorMax, 0.25f);
+	    return Math.round(armor * 100.0F) / 100.0F;
 	}
-	
 	public float getToughness(Random rand)
 	{
-		float toughness = this.toughnessMin;
-		
-		toughness += (this.tougnessMax - toughness) * rand.nextFloat();
-		toughness = (float)Math.round(toughness * 100.0F) / 100.0F;
-		
-		return toughness;
+	    float toughness = rollWithSoftCapFloat(rand, toughnessMin, tougnessMax, 0.25f);
+	    return Math.round(toughness * 100.0F) / 100.0F;
 	}
-	
 	public float getEfficiency(Random rand)
 	{
-		float efficiency = this.efficiencyMin;
-		
-		efficiency += (this.efficiencyMax - efficiency) * rand.nextFloat();
-		
-		return efficiency;
+	    float efficiency = rollWithSoftCapFloat(rand, efficiencyMin, efficiencyMax, 0.25f);
+	    return Math.round(efficiency * 100.0F) / 100.0F;
 	}
-	
 	public int getUpgrades(Random rand)
 	{
-		int upgrades = this.upgradesMin;
-		
-		upgrades += rand.nextInt(this.upgradesMax - upgrades + 1);
-		
-		return upgrades;
+	    return rollWithSoftCapInt(rand, upgradesMin, upgradesMax, 0.20f);
 	}
 	
 	protected static LootRarity get(String id, TextFormatting color, Item shard)

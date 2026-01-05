@@ -19,13 +19,42 @@ public class MLCraftingRecipes
 				, new ResourceLocation(MLConstants.MOD_ID, "megaloot")
 				, new ItemStack(MLItems.RIFT_STONE)
 				, new Object[] {
-						" s "
-						,"sds"
+						 "sd"
+						,"ds"
 						,'s'
-						,Ingredient.fromItems(MLItems.SHARD_COMMON, MLItems.SHARD_RARE, MLItems.SHARD_EPIC)
+						,Items.SLIME_BALL
 						,'d'
-						,Items.DIAMOND
+						,Blocks.MOSSY_COBBLESTONE
 				});
+		
+		
+		
+		
+		GameRegistry.addShapelessRecipe(
+		        new ResourceLocation(MLConstants.MOD_ID, "infused_emerald_common_rift")
+		        , new ResourceLocation(MLConstants.MOD_ID, "megaloot")
+		        , new ItemStack(MLItems.INFUSED_EMERALD_COMMON)
+		        , Ingredient.fromItem(MLItems.INFUSED_EMERALD_COMMON)
+		        , Ingredient.fromItem(MLItems.RIFT_STONE)
+		);
+		GameRegistry.addShapelessRecipe(
+		        new ResourceLocation(MLConstants.MOD_ID, "infused_emerald_rare_rift")
+		        , new ResourceLocation(MLConstants.MOD_ID, "megaloot")
+		        , new ItemStack(MLItems.INFUSED_EMERALD_RARE)
+		        , Ingredient.fromItem(MLItems.INFUSED_EMERALD_RARE)
+		        , Ingredient.fromItem(MLItems.RIFT_STONE)
+		);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		GameRegistry.addShapedRecipe(
 				new ResourceLocation(MLConstants.MOD_ID, "skin_table")

@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Map.Entry;
 
 import javax.annotation.Nullable;
 
 import com.google.common.collect.Multimap;
+import com.google.common.collect.Sets;
 
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.Minecraft;
@@ -20,8 +22,10 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.IItemPropertyGetter;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.translation.I18n;
@@ -42,7 +46,7 @@ public class MLItemArmor extends ItemArmor implements IMegaLoot
 		super(ArmorMaterial.DIAMOND, 3, equipmentSlot);
 		
 		this.setCreativeTab(MegaLoot.creativeTabMain);
-		this.setNoRepair();
+		//this.setNoRepair();
 		
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(this, DISPENSER_BEHAVIOR);
 		
@@ -150,6 +154,35 @@ public class MLItemArmor extends ItemArmor implements IMegaLoot
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flagIn)
 	{
+		
+		
+		
+		//JETPACK STATE
+		final Set<Item> chestplate = Sets.newHashSet(MLItems.ARMOR_CHESTPLATE);
+		if (chestplate.contains(stack.getItem())) {
+			if (LootItemHelper.hasEffect(stack, LootWeaponEffect.JETPACK)) {
+				
+				NBTTagCompound tag = stack.getTagCompound();
+				boolean active = tag.getBoolean("AbilityActive");
+                if (tag == null)
+                    tag = new NBTTagCompound();
+	                tag.setBoolean("AbilityActive", active);
+	                stack.setTagCompound(tag);
+	            
+                if(active) {
+                	tooltip.add(TextFormatting.GOLD + "JetPack["+ TextFormatting.GREEN + "ON" + TextFormatting.YELLOW +"] ");
+                }else{
+                	tooltip.add(TextFormatting.GOLD + "JetPack["+ TextFormatting.RED + "OFF" + TextFormatting.YELLOW +"] ");
+                }  
+                tooltip.add(TextFormatting.DARK_GRAY +""+ TextFormatting.ITALIC + "Press [activate] while in hand to toggle");
+			}
+		}
+		
+		
+		
+		
+		
+		
 		if (GuiScreen.isShiftKeyDown())
 		{
 			String set_id = LootItemHelper.getLootStringValue(stack, MLItem.LOOT_TAG_LOOTSET).toUpperCase();

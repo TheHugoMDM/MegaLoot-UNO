@@ -17,6 +17,7 @@ public class MLItemInfused extends MLItem
 	protected MLItemInfused()
 	{
 		this.setMaxStackSize(1);
+		this.setMaxDamage(100);
 	}
 	
 	@Override
@@ -25,8 +26,9 @@ public class MLItemInfused extends MLItem
 		if (!stack.hasTagCompound())
 			stack.setTagCompound(new NBTTagCompound());
 		
+		int evchan=40 + itemRand.nextInt(60);
 		if (!stack.getTagCompound().hasKey("evolve_chance"))
-			stack.getTagCompound().setInteger("evolve_chance", 30 + itemRand.nextInt(51));
+			stack.getTagCompound().setInteger("evolve_chance", evchan);
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -39,5 +41,6 @@ public class MLItemInfused extends MLItem
 		int chance = stack.getTagCompound().getInteger("evolve_chance");
 		
 		tooltip.add("Evolution Chance " + chance + "%");
+		stack.setItemDamage((chance*-1)+100);
 	}
 }

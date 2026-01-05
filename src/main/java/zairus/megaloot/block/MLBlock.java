@@ -8,6 +8,7 @@ public class MLBlock extends Block
 	public static final String SKIN_TABLE_ID = "skin_table";
 	public static final String DISENCHANTER_ID = "disenchanter";
 	public static final String EVOLUTION_CHAMBER_ID = "evolution_chamber";
+	public static final String SHARDS_ORE_ID = "shards_ore";
 	
 	protected MLBlock(Material material)
 	{

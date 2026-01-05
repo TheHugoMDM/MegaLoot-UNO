@@ -31,6 +31,10 @@ public class MLBlocks
 	public static final Block DISENCHANTER;
 	@ObjectHolder(MLBlock.EVOLUTION_CHAMBER_ID)
 	public static final Block EVOLUTION_CHAMBER;
+	@ObjectHolder(MLBlock.SHARDS_ORE_ID)
+	public static final Block SHARDS_ORE;
+		
+	
 	
 	protected static final List<Block> BLOCKS = new ArrayList<Block>();
 	
@@ -39,6 +43,7 @@ public class MLBlocks
 		SKIN_TABLE = initBlock(new MLBlockSkinTable(), MLBlock.SKIN_TABLE_ID);
 		DISENCHANTER = initBlock(new MLBlockDisenchanter(), MLBlock.DISENCHANTER_ID);
 		EVOLUTION_CHAMBER = initBlock(new MLBlockEvolutionChamber(), MLBlock.EVOLUTION_CHAMBER_ID);
+		SHARDS_ORE = initBlock(new MLBlockShardOre(), MLBlock.SHARDS_ORE_ID);
 	}
 	
 	public static void initialize()
@@ -62,11 +67,18 @@ public class MLBlocks
 		{
 			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(MLConstants.MOD_ID + ":" + block.getUnlocalizedName().substring(5), "inventory"));
 		}
+		
+
 	}
 	
 	@Mod.EventBusSubscriber(modid = MLConstants.MOD_ID)
 	public static class BlockRegistry
 	{
+		
+		
+		
+		
+		
 		public static final Set<ItemBlock> ITEM_BLOCKS = new HashSet<ItemBlock>();
 		
 		@SubscribeEvent
@@ -95,6 +107,7 @@ public class MLBlocks
 				registry.register(item.setRegistryName(registryName));
 				ITEM_BLOCKS.add(item);
 			}
+			
 		}
 	}
 }

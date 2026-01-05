@@ -34,7 +34,7 @@ public class MLItemWeaponSword extends ItemSword implements IMegaLoot
 		super(ToolMaterial.DIAMOND);
 		
 		this.setCreativeTab(MegaLoot.creativeTabMain);
-		this.setNoRepair();
+		//this.setNoRepair();
 		
 		this.addPropertyOverride(new ResourceLocation("model"), new IItemPropertyGetter() {
 			@SideOnly(Side.CLIENT)
@@ -104,7 +104,7 @@ public class MLItemWeaponSword extends ItemSword implements IMegaLoot
 		
 		if (GuiScreen.isShiftKeyDown())
 		{
-			tooltip.add(TextFormatting.WHITE + ItemStack.DECIMALFORMAT.format(((float)attackDamage * sp1)) + " DPS");
+			tooltip.add(TextFormatting.WHITE + ItemStack.DECIMALFORMAT.format(((float)(attackDamage+7) * 1.5)) + " Crit"); //dps was broken and i dont think people cares about
 			
 			LootItemHelper.addInformation(stack, tooltip);
 		}
@@ -112,7 +112,7 @@ public class MLItemWeaponSword extends ItemSword implements IMegaLoot
 		{
 			tooltip.add(TextFormatting.RESET + "" + "Sword");
 			
-			tooltip.add(TextFormatting.GRAY + "" + attackDamage + " Damage | " + ItemStack.DECIMALFORMAT.format(sp1) + " Atack Speed");
+			tooltip.add(TextFormatting.GRAY + "" + (attackDamage+7) + " Damage | " + ItemStack.DECIMALFORMAT.format(sp1) + " Atack Speed");
 			
 			tooltip.add(TextFormatting.AQUA + "" + TextFormatting.ITALIC + "Shift" + TextFormatting.DARK_GRAY + " for more...");
 		}

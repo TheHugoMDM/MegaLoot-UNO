@@ -28,11 +28,11 @@ public class MLModelArmorKnight extends MLModelArmorBase
 		
 		if (partType == LootSetType.ARMOR_CHEST)
 		{
-			this.bipedBody.addBox(-4.0F, 0.0F, -2.0F, 8, 12, 4, scale);
+			this.bipedBody.addBox(-4.0F, 0.0F, -2.0F, 8, 12, 4, scale+0.02F);
 			
-			this.bipedRightArm.addBox(-3.0F, -2.0F, -2.0F, 4, 12, 4, scale);
+			this.bipedRightArm.addBox(-3.0F, -2.0F, -2.0F, 4, 12, 4, scale+0.6F);
 			
-			this.bipedLeftArm.addBox(-1.0F, -2.0F, -2.0F, 4, 12, 4, scale);
+			this.bipedLeftArm.addBox(-1.0F, -2.0F, -2.0F, 4, 12, 4, scale+0.6F);
 		}
 		
 		// ## Leggings
@@ -40,13 +40,13 @@ public class MLModelArmorKnight extends MLModelArmorBase
 		if (partType == LootSetType.ARMOR_LEGS)
 		{
 			ModelRenderer bodyBelt = new ModelRenderer(this, 16, 49);
-			bodyBelt.addBox(-4.0F, 7.0F, -2.0F, 8, 5, 4, scale);
+			bodyBelt.addBox(-4.0F, 7.0F, -2.0F, 8, 5, 4, scale+0.01F);
 			
 			this.bipedBody.addChild(bodyBelt);
 			
-			this.bipedRightLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, scale);
+			this.bipedRightLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, scale+0.01F);
 			
-			this.bipedLeftLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, scale);
+			this.bipedLeftLeg.addBox(-2.0F, 0.0F, -2.0F, 4, 12, 4, scale+0.01F);
 		}
 		
 		// ## Boots

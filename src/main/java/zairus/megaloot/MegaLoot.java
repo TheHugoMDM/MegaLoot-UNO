@@ -34,7 +34,7 @@ public class MegaLoot
 		@Override
 		public ItemStack getTabIconItem()
 		{
-			return new ItemStack(MLItems.WEAPONCASE_COMMON);
+			return new ItemStack(MLItems.WEAPONCASE_RARE);
 		}
 	};
 	
@@ -67,6 +67,7 @@ public class MegaLoot
 	public void postInit(FMLPostInitializationEvent event)
 	{
 		MegaLoot.proxy.postInit(event);
+		
 	}
 	
 	public static void logInfo(String message)

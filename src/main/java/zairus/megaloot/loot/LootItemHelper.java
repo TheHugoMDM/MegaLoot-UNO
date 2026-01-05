@@ -20,26 +20,86 @@ import zairus.megaloot.util.RandomCollection;
 @SuppressWarnings("deprecation")
 public class LootItemHelper
 {
+	
+	
+	
+	
+	
+	
+	@SideOnly(Side.CLIENT)
+	public static void addinfo(ItemStack stack, List<String> tooltip)
+	{
+		
+		tooltip.add(TextFormatting.YELLOW +"PRUEBA");
+		
+		
+	}
+	
+	
+	
+	
+	
+	public static ItemStack getSpecificLoot(int type,Random rand, LootRarity rarity)
+	{
+		RandomCollection<Item> col = new RandomCollection<Item>(rand);
+		// Item Weight by rarity
+		
+		switch (type)
+		{
+		    case 1:
+		    	col.add(3, MLItems.TOOL_PICKAXE);
+		        break;
+		    case 2:
+		    	col.add(3, MLItems.TOOL_AXE);
+		        break;
+		    case 3:
+		    	col.add(3, MLItems.TOOL_SHOVEL);
+		        break;
+		    case 4:
+		    	col.add(3, MLItems.WEAPONBOW);
+		        break;
+		    case 5:
+		    	col.add(3, MLItems.WEAPONSWORD);
+		        break;
+		    case 6:
+		    	col.add(((rarity == LootRarity.COMMON)? 0 : 1), MLItems.BAUBLERING);
+		        break;
+		    case 7:
+		    	col.add(1, MLItems.ARMOR_HELMET);
+		        break;
+		    case 8:
+		    	col.add(1, MLItems.ARMOR_CHESTPLATE);
+		        break;
+		    case 9:
+		    	col.add(1, MLItems.ARMOR_LEGGINGS);
+		        break;
+		    case 10:
+		    	col.add(1, MLItems.ARMOR_BOOTS);
+		    	break;
+		    default:
+		    	col.add(3, MLItems.WEAPONSWORD);
+		        break;
+		}
+		
+		ItemStack stack = new ItemStack(col.next());
+		return stack;
+	}
+	
 	public static ItemStack getRandomLoot(Random rand, LootRarity rarity)
 	{
 		RandomCollection<Item> col = new RandomCollection<Item>(rand);
 		// Item Weight by rarity
 		col.add(3, MLItems.WEAPONSWORD);
 		col.add(3, MLItems.WEAPONBOW);
-		
 		col.add(((rarity == LootRarity.COMMON)? 0 : 1), MLItems.BAUBLERING);
-		
 		col.add(1, MLItems.ARMOR_HELMET);
 		col.add(1, MLItems.ARMOR_CHESTPLATE);
 		col.add(1, MLItems.ARMOR_LEGGINGS);
 		col.add(1, MLItems.ARMOR_BOOTS);
-		
 		col.add(3, MLItems.TOOL_AXE);
 		col.add(3, MLItems.TOOL_PICKAXE);
 		col.add(3, MLItems.TOOL_SHOVEL);
-		
 		ItemStack stack = new ItemStack(col.next());
-		
 		return stack;
 	}
 	
