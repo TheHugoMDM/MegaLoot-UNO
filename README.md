@@ -31,9 +31,7 @@ Version 0.3
 
 -Changed, disenchanter and evolution chamber are faster. 
 
--Changed, loot rebalance to the stats (they have a "common" stats range, each extra point above the "common max" has a 200% harder to be applied
-
-that means you can get a 50 damage sword but its very extremely rare to get, and a 51 damage is even more)
+-Changed, loot rebalance to the stats (they have a "common" stats range, each extra point above the "common max" has a 200% harder to be applied, that means you can get a 50 damage sword but its very extremely rare to get, and a 51 damage is even more)
 														   
 -Changed, now when you upgrade something that already has all the effects but still has upgrades, you add a extra point to the main stat (damage, mining speed, armor or power)
 
